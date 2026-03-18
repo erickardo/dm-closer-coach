@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #fcfbf0; /* Usually used for Backgrounds */
+    --foreground: #111111; /* Tertiary */
+    
+    --primary: #bfc5d1; /* Primary */
+    --primary-foreground: #111111; /* Tertiary */
+    
+    --secondary: #b4bfa5; /* Secondary (logo color) */
+    --secondary-foreground: #111111; /* Tertiary */
+    
+    --accent: #b4bfa5;
+    --accent-foreground: #111111;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: #bfc5d1;
+    --input: #bfc5d1;
+    --ring: #b4bfa5;
+    --radius: 1.5rem; /* rounded-3xl corners */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased text-[#111111];
+  }
+}

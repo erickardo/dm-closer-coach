@@ -1,0 +1,11 @@
+Colors
+Primary: #bfc5d1
+Secondary: #b4bfa5 (this is the logo color)
+Tertiary: #111111 (used mainly for accent and text)
+Usually used for Backgrounds: #fcfbf0
+
+Typhographies:
+Sora (for large texts)
+Butler (for titles and important short texts)
+
+Vibe: minimalist, playful, focused on helping.
