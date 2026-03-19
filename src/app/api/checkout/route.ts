@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@/lib/supabase/server'
+import { headers } from 'next/headers'
 
 export async function POST() {
   try {
@@ -17,7 +18,10 @@ export async function POST() {
       return NextResponse.json({ error: 'Price ID not configured' }, { status: 500 })
     }
 
-    const origin = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+    const headersList = headers()
+    const host = headersList.get('host') || 'localhost:3000'
+    const protocol = host.includes('localhost') ? 'http' : 'https'
+    const origin = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],

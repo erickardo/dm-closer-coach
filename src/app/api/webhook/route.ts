@@ -36,11 +36,10 @@ export async function POST(req: Request) {
         
       const currentCredits = profile?.credits_left || 0
       
-      // Let's add 50 credits per package.
+      // Let's add 50 credits per package. Upsert ensures new users also get credits implicitly.
       await supabaseAdmin
         .from('Creditos')
-        .update({ credits_left: currentCredits + 50 })
-        .eq('email', email)
+        .upsert({ email: email, credits_left: currentCredits + 50 }, { onConflict: 'email' })
     }
   }
 
