@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--dns-result-order=ipv4first' next dev",
-    "build": "NODE_OPTIONS='--dns-result-order=ipv4first' next build",
-    "start": "NODE_OPTIONS='--dns-result-order=ipv4first' next start",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
