@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { Sparkles, CreditCard, LogOut } from 'lucide-react'
 import CreditsMenu from '@/components/CreditsMenu'
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
