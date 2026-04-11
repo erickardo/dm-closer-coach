@@ -25,18 +25,16 @@ export default function Home() {
         </div>
         
         <h1 className="font-heading text-5xl md:text-7xl font-extrabold max-w-4xl tracking-tight leading-[1.1] mb-6 text-foreground">
-          Analiza tus DMs.<br />
-          <span className="text-[#aab1bf]">Descubre tus errores.</span><br />
-          <span className="text-secondary">Cierra más ventas.</span>
+          Todas las herramientas que necesitas para hacer crecer tu negocio, <span className="text-secondary">están aquí.</span>
         </h1>
         
         <p className="text-lg md:text-xl text-gray-500 max-w-2xl mb-10 font-sans font-light">
-          El primer Micro-SaaS con IA diseñado para emprendedoras en Instagram. Sube tus capturas de pantalla de chats, descubre por qué te dejaron en visto, y obtén la respuesta perfecta al instante.
+          Un ecosistema completo de Micro-SaaS con IA diseñado para emprendedores. Analiza tus DMs, genera copy de alta conversión, y valida tus modelos de negocio en un solo lugar.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
           <Link href="/login" className="bg-secondary hover:bg-[#a3ae94] text-[#111111] font-semibold text-lg px-8 py-4 rounded-full transition-colors flex justify-center items-center shadow-md">
-            Analizar mi primer DM <ArrowRight className="ml-2 w-5 h-5" />
+            Acceder a mis herramientas <ArrowRight className="ml-2 w-5 h-5" />
           </Link>
         </div>
 

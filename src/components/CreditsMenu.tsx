@@ -39,9 +39,9 @@ export default function CreditsMenu({ credits }: { credits: number }) {
     <div className="relative" ref={menuRef}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 bg-[#fcfbf0] hover:bg-[#f4ebd0] border border-secondary/30 px-4 py-1.5 rounded-full text-sm font-medium text-[#111111] transition-colors"
+        className="flex items-center gap-2 bg-[#fcfbf0] hover:bg-[#f4ebd0] border border-secondary/30 px-3 py-1.5 md:px-4 md:py-1.5 rounded-full text-xs md:text-sm font-medium text-[#111111] transition-colors"
       >
-        <CreditCard className="w-4 h-4 text-secondary" />
+        <CreditCard className="w-3.5 h-3.5 md:w-4 md:h-4 text-secondary" />
         <span>{credits} Créditos</span>
       </button>
 

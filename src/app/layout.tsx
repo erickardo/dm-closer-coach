@@ -25,7 +25,7 @@ const butler = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "DM Closer Coach - Analiza tus DMs y cierra más ventas",
+  title: "Herramientas Estudios E",
   description: "Micro-SaaS para emprendedoras. Coach de ventas en Instagram impulsado por IA.",
 };
 
