@@ -2,8 +2,9 @@ import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { Sparkles, CreditCard, LogOut } from 'lucide-react'
+import { Sparkles, CreditCard } from 'lucide-react'
 import CreditsMenu from '@/components/CreditsMenu'
+import LogoutButton from '@/components/LogoutButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -37,9 +38,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         </Link>
         <div className="flex items-center gap-2 md:gap-4">
           <CreditsMenu credits={credits} />
-          <Link href="/login" className="text-gray-400 hover:text-gray-600 transition-colors p-1 md:p-2">
-            <LogOut className="w-4 h-4 md:w-5 md:h-5" />
-          </Link>
+          <LogoutButton />
         </div>
       </header>
       <main className="flex-1 overflow-hidden flex flex-col px-4 md:px-8 py-8 md:py-12 relative z-0">
