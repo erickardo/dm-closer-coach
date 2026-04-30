@@ -1,0 +1,637 @@
+<!DOCTYPE html><html lang="es"><head>
+
+
+
+
+
+
+
+
+<meta charset="utf-8">
+<title>El Protocolo de la Sucursal Digital · estudios e</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  /* ----------------------------------------------------------
+     PDF vertical optimizado para móvil · 420 × 720 por página
+     (relación 9:16 ~ feed vertical, cómodo en celular)
+     ---------------------------------------------------------- */
+  :root{
+    --pg-w: 420px;
+    --pg-h: 720px;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#2a2a28;font-family:"Sora",sans-serif;color:#111;}
+  body{display:flex;flex-direction:column;align-items:center;gap:18px;padding:32px 12px 64px;}
+
+  .intro{max-width:420px;color:#fcfbf0;text-align:left;padding:0 6px 8px;}
+  .intro h1{font-family:"Butler",serif;font-weight:400;font-size:22px;margin:0 0 6px;letter-spacing:-.01em;}
+  .intro p{font-size:12px;line-height:1.55;color:rgba(252,251,240,.65);margin:0;}
+
+  /* ---------------- page frame ---------------- */
+  .pg{
+    width:var(--pg-w);height:var(--pg-h);
+    position:relative;overflow:hidden;
+    background:#fcfbf0;
+    box-shadow:0 18px 40px rgba(0,0,0,.4);
+    border-radius:2px;
+    page-break-after:always;
+    break-after:page;
+  }
+  .pg:last-of-type{page-break-after:auto;}
+
+  .pg__num{
+    position:absolute;bottom:18px;left:24px;
+    font-family:"Sora",sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+    color:rgba(17,17,17,.5);
+    z-index:3;
+  }
+  .pg__brand{
+    position:absolute;bottom:16px;right:20px;z-index:3;
+    display:flex;align-items:center;gap:8px;
+    font-family:"Sora",sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+    color:rgba(17,17,17,.5);
+  }
+  .pg__brand img{height:14px;opacity:.55;}
+
+  .over{
+    font-family:"Sora",sans-serif;font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+    font-weight:500;color:#6e6e69;
+    display:flex;align-items:center;gap:10px;
+  }
+  .over::before{content:"";display:block;width:24px;height:1px;background:currentColor;}
+  .over.no-rule::before{display:none;}
+
+  /* ------ reusable blocks ------ */
+  .content{padding:54px 32px 56px;height:100%;display:flex;flex-direction:column;}
+  .content-wide{padding:46px 28px 56px;}
+
+  h2.chapter{
+    font-family:"Butler",serif;font-weight:400;font-size:30px;line-height:1.05;letter-spacing:-.01em;
+    color:#111;margin:14px 0 16px;
+  }
+  h2.chapter em{font-style:italic;}
+  h2.chapter .big{font-weight:700;}
+
+  .lead{font-size:13px;line-height:1.6;color:#3a3a38;margin:0 0 14px;text-wrap:pretty;}
+  .body{font-size:12.5px;line-height:1.65;color:#3a3a38;margin:0 0 12px;text-wrap:pretty;}
+  .body b{color:#111;font-weight:600;}
+  .body em{font-style:italic;}
+  .small{font-size:11px;line-height:1.55;color:#6e6e69;}
+
+  /* ============================================================
+     COVER — Pale Ivory + isotipo bleeding
+     ============================================================ */
+  .cover{background:#fcfbf0;}
+  .cover .iso{
+    position:absolute;right:-150px;top:-180px;width:580px;
+    opacity:.14;transform:rotate(-10deg);pointer-events:none;
+  }
+  .cover .inner{position:relative;z-index:2;height:100%;padding:48px 32px 76px;display:flex;flex-direction:column;}
+  .cover .kicker{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#8c6b52;font-weight:500;margin-bottom:16px;}
+  .cover .logo{height:22px;margin-bottom:auto;}
+  .cover h1{
+    font-family:"Butler",serif;font-weight:400;font-size:42px;line-height:.96;letter-spacing:-.015em;
+    color:#111;margin:24px 0 18px;
+  }
+  .cover h1 em{font-style:italic;}
+  .cover h1 .hl{display:inline-block;background:#819ce3;padding:0 8px 2px;color:#111;}
+  .cover .deck{font-family:"Butler",serif;font-style:italic;font-weight:400;font-size:16px;line-height:1.35;color:#3a3a38;margin:0 0 28px;}
+  .cover .meta{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    padding-top:16px;border-top:1px solid rgba(17,17,17,.15);
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#6e6e69;
+  }
+  .cover .meta b{color:#111;font-weight:600;}
+
+  /* ============================================================
+     SECTION BANDS — color-driven
+     ============================================================ */
+  .band-lavender{background:#bfc5d1;}
+  .band-sage{background:#b4bfa5;}
+  .band-dust{background:#e1d2bb;}
+  .band-ivory{background:#fcfbf0;}
+  .band-ink{background:#111;color:#fcfbf0;}
+  .band-ink .body,.band-ink .lead{color:rgba(252,251,240,.82);}
+  .band-ink .body b{color:#fcfbf0;}
+  .band-ink .over{color:rgba(252,251,240,.6);}
+  .band-ink h2.chapter{color:#fcfbf0;}
+
+  /* section title page */
+  .section-title{position:relative;}
+  .section-title .huge-n{
+    position:absolute;right:18px;top:28px;
+    font-family:"Butler",serif;font-style:italic;font-weight:400;font-size:140px;line-height:1;
+    color:rgba(17,17,17,.08);letter-spacing:-.02em;z-index:1;
+  }
+  .section-title .content{position:relative;z-index:2;justify-content:flex-end;padding-bottom:90px;}
+  .section-title h2{
+    font-family:"Butler",serif;font-weight:400;font-size:38px;line-height:1.02;letter-spacing:-.012em;
+    color:#111;margin:12px 0 18px;
+  }
+  .section-title h2 em{font-style:italic;}
+  .section-title .deck{font-size:13px;line-height:1.55;color:#2a2f2a;margin:0 0 4px;max-width:330px;}
+
+  /* mirror / three archetypes */
+  .arch{display:flex;flex-direction:column;gap:14px;margin-top:6px;}
+  .arch-card{
+    background:rgba(252,251,240,.6);border:1px solid rgba(17,17,17,.1);border-radius:14px;
+    padding:14px 16px;position:relative;
+  }
+  .arch-card.is-you{background:#111;color:#fcfbf0;border-color:#111;}
+  .arch-card.is-you .arch-title{color:#fcfbf0;}
+  .arch-card.is-you .arch-body{color:rgba(252,251,240,.8);}
+  .arch-card.is-you .arch-tag{background:#819ce3;color:#111;}
+  .arch-tag{
+    position:absolute;top:-9px;right:14px;background:#fcfbf0;color:#8c6b52;
+    font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;padding:3px 8px;border-radius:999px;font-weight:600;
+  }
+  .arch-title{font-family:"Butler",serif;font-weight:500;font-size:17px;color:#111;margin:0 0 6px;letter-spacing:-.005em;}
+  .arch-body{font-size:11.5px;line-height:1.5;color:#3a3a38;margin:0;}
+  .arch-body em{font-style:italic;}
+
+  /* numbered big stat */
+  .stat-row{display:flex;gap:14px;margin:4px 0 18px;}
+  .stat{
+    flex:1;border-top:1px solid rgba(17,17,17,.2);padding-top:10px;
+  }
+  .stat b{font-family:"Butler",serif;font-weight:400;font-size:28px;display:block;color:#111;letter-spacing:-.01em;line-height:1;}
+  .stat span{font-size:10px;color:#3a3a38;display:block;margin-top:6px;line-height:1.4;}
+  .band-ink .stat{border-color:rgba(252,251,240,.25);}
+  .band-ink .stat b{color:#fcfbf0;}
+  .band-ink .stat span{color:rgba(252,251,240,.7);}
+
+  /* quiz list */
+  .quiz{list-style:none;padding:0;margin:8px 0 10px;counter-reset:q;}
+  .quiz li{
+    counter-increment:q;
+    display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(17,17,17,.1);
+    font-size:12px;line-height:1.45;color:#111;
+  }
+  .quiz li::before{
+    content:counter(q,decimal-leading-zero);
+    font-family:"Butler",serif;font-style:italic;font-size:14px;color:#8c6b52;flex-shrink:0;min-width:24px;
+  }
+
+  /* errors pages */
+  .err-head{display:flex;align-items:baseline;gap:12px;margin-bottom:10px;}
+  .err-n{font-family:"Butler",serif;font-style:italic;font-size:56px;color:#8c6b52;line-height:1;letter-spacing:-.02em;}
+  .err-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#8c6b52;font-weight:600;}
+  .err-title{font-family:"Butler",serif;font-weight:400;font-size:24px;line-height:1.1;color:#111;margin:4px 0 14px;letter-spacing:-.01em;}
+  .err-title em{font-style:italic;}
+  .err-quote{
+    border-left:2px solid #819ce3;padding:10px 14px;margin:14px 0;
+    background:#eef0f4;font-size:11.5px;line-height:1.55;color:#111;font-style:italic;
+  }
+
+  /* pillar pages */
+  .pillar-num{
+    font-family:"Butler",serif;font-style:italic;font-size:14px;color:#8c6b52;
+    letter-spacing:.04em;
+  }
+  .pillar-h{
+    font-family:"Butler",serif;font-weight:400;font-size:30px;line-height:1.04;letter-spacing:-.012em;
+    color:#111;margin:8px 0 14px;
+  }
+  .pillar-h em{font-style:italic;}
+  .note-box{
+    margin-top:auto;padding:14px 16px;border-radius:12px;background:#111;color:#fcfbf0;
+  }
+  .note-box .label{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#819ce3;font-weight:600;margin-bottom:6px;}
+  .note-box p{margin:0;font-size:11.5px;line-height:1.5;color:rgba(252,251,240,.88);}
+
+  /* results table */
+  .levels{display:flex;flex-direction:column;gap:0;margin:4px 0 14px;}
+  .level-row{
+    display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:baseline;
+    padding:14px 0;border-top:1px solid rgba(17,17,17,.15);
+  }
+  .level-row:last-child{border-bottom:1px solid rgba(17,17,17,.15);}
+  .level-row .amt{font-family:"Butler",serif;font-weight:400;font-size:22px;color:#111;letter-spacing:-.01em;line-height:1;}
+  .level-row .tier{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#6e6e69;margin-bottom:4px;}
+  .level-row .desc{font-size:11px;color:#3a3a38;line-height:1.5;margin-top:2px;}
+
+  .big-num{
+    font-family:"Butler",serif;font-weight:400;font-style:italic;font-size:96px;line-height:1;
+    color:#111;letter-spacing:-.02em;
+  }
+
+  /* results stories */
+  .story-row{
+    display:flex;flex-direction:column;gap:14px;margin:18px 0 14px;flex:1;
+  }
+  .story-card{
+    background:rgba(252,251,240,.72);border-radius:16px;padding:22px 22px 20px;
+    border:1px solid rgba(17,17,17,.08);
+    display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;
+    flex:1;min-height:0;
+  }
+  .band-sage .story-card{background:rgba(252,251,240,.72);border-color:transparent;}
+  .story-card .name{font-family:"Butler",serif;font-style:italic;font-size:24px;color:#8c6b52;letter-spacing:-.005em;line-height:1;}
+  .story-card .amt{font-family:"Butler",serif;font-weight:400;font-size:44px;color:#111;line-height:.95;letter-spacing:-.02em;text-align:right;}
+  .story-card .when{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#6e6e69;line-height:1.4;max-width:84px;}
+
+  /* CTA page */
+  .cta-page{background:#111;color:#fcfbf0;position:relative;overflow:hidden;}
+  .cta-page .iso-ghost{
+    position:absolute;right:-120px;bottom:-140px;width:480px;opacity:.09;pointer-events:none;
+  }
+  .cta-page .content{position:relative;z-index:2;justify-content:space-between;}
+  .cta-page .over{color:#819ce3;}
+  .cta-page h2{font-family:"Butler",serif;font-weight:400;font-size:36px;line-height:1.02;letter-spacing:-.012em;color:#fcfbf0;margin:14px 0 16px;}
+  .cta-page h2 em{font-style:italic;}
+  .cta-page p{font-size:13px;line-height:1.55;color:rgba(252,251,240,.75);margin:0 0 16px;}
+  .checklist{list-style:none;padding:0;margin:6px 0 24px;}
+  .checklist li{display:flex;gap:12px;padding:9px 0;border-top:1px solid rgba(252,251,240,.15);font-size:12px;color:rgba(252,251,240,.88);}
+  .checklist li::before{content:"✓";color:#819ce3;font-weight:600;}
+  .checklist li:last-child{border-bottom:1px solid rgba(252,251,240,.15);}
+  .cta-btn{
+    display:block;text-align:center;background:#819ce3;color:#111;
+    text-decoration:none;border-radius:999px;padding:16px 22px;
+    font-family:"Sora",sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.02em;
+    box-shadow:0 10px 24px rgba(129,156,227,.35);
+  }
+  .cta-sub{text-align:center;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(252,251,240,.5);margin-top:14px;}
+
+  /* wordmark header band */
+  .wordmark-band{
+    position:absolute;top:0;left:0;right:0;
+    padding:18px 24px;display:flex;justify-content:space-between;align-items:center;
+    z-index:3;
+  }
+  .wordmark-band img{height:16px;opacity:.75;}
+  .wordmark-band span{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(17,17,17,.5);}
+  .band-ink .wordmark-band img{filter:none;opacity:.85;}
+  .band-ink .wordmark-band span{color:rgba(252,251,240,.55);}
+
+  /* print */
+  @page {
+    size: 420px 720px;
+    margin: 0;
+  }
+  @media print{
+    html,body{background:#fff;}
+    body{padding:0;gap:0;}
+    .intro{display:none;}
+    .pg{box-shadow:none;border-radius:0;margin:0;}
+  }
+</style>
+</head>
+<body style="cursor: crosshair;" data-cc-id="cc-1">
+
+<div class="intro">
+  <h1>El Protocolo de la Sucursal Digital</h1>
+  <p>PDF vertical optimizado para móvil · 420 × 720 · 14 páginas · imprime / guarda como PDF desde el navegador (Cmd/Ctrl + P → Guardar como PDF).</p>
+</div>
+
+<!-- =================================================================
+     01 · COVER
+     ================================================================= -->
+<article class="pg cover">
+  <img class="iso" src="../assets/isotipo-chinese-black.png" alt="">
+  <div class="inner" data-cc-id="cc-7">
+    <img class="logo" src="../assets/logo-chinese-black.png" alt="estudios e" data-cc-id="cc-2" style="height: 51px;">
+    <div>
+      <p class="kicker" style="" data-cc-id="cc-3">Guía Gratis ·</p>
+      <h1 style="" data-cc-id="cc-4">
+        El Paso a Paso<br>
+        para tu&nbsp;<em>Sucursal</em><br>
+        <span class="hl">Digital.</span>
+      </h1>
+      <p class="deck" style="" data-cc-id="cc-5">Cómo llevar tu joyería física al mundo digital y facturar tus primeros $250,000 al mes — sin bazares, sin suerte y sin depender del algoritmo.</p>
+    </div>
+    <div class="meta" data-cc-id="cc-8">
+      <span style="font-weight: 400;" data-cc-id="cc-6"><b style="font-weight: 400;">por</b><br>estudios e</span>
+      <span style="" data-cc-id="cc-9"><br>lectura · 12 min</span>
+    </div>
+  </div>
+  <div class="pg__num">01 / 14</div>
+</article>
+
+<!-- =================================================================
+     02 · QUIÉN ESCRIBIÓ ESTO
+     ================================================================= -->
+<article class="pg band-ivory">
+  <div class="wordmark-band">
+    <img src="../assets/logo-chinese-black.png" alt="">
+    <span>01 · intro</span>
+  </div>
+  <div class="content">
+    <p class="over">Quién escribió esto</p>
+    <h2 class="chapter">No somos coaches. Somos <em>ingenieros</em> de negocios.</h2>
+    <p class="body">Yo soy <b>Erick</b> y nosotros somos <b>estudios e</b>. No vendemos frases bonitas ni te vamos a pedir que "manifiestes" tus metas.</p>
+    <p class="body">Tomamos un negocio que ya funciona, le encontramos los huecos por donde se escapa el dinero, y los arreglamos con sistemas probados. Sin opiniones, sin corazonadas. Solo números.</p>
+    <p class="body">Hemos escalado negocios de calzado, joyería y moda a cientos de miles de pesos al mes usando exactamente el sistema que estás a punto de leer.</p>
+    <div style="margin-top:auto;padding-top:14px;border-top:1px solid rgba(17,17,17,.15);">
+      <p class="small" style="margin:0;">Este documento es <b style="color:#111">gratis</b>. Y es mejor que la mayoría de los cursos de pago sobre este tema.</p>
+    </div>
+  </div>
+  <div class="pg__num">02 / 14</div>
+</article>
+
+<!-- =================================================================
+     03 · RESULTADOS RECIENTES — stories
+     ================================================================= -->
+<article class="pg band-sage">
+  <div class="wordmark-band">
+    <img src="../assets/logo-chinese-black.png" alt="">
+    <span>resultados reales</span>
+  </div>
+  <div class="content">
+    <p class="over">Tres clientas recientes</p>
+    <h2 class="chapter">Ninguna era <em>"especial"</em>. Solo estaban listas para dejar de operar por instinto.</h2>
+
+    <div class="story-row">
+      <div class="story-card">
+        <div class="name">Angie</div>
+        <div class="amt">$24K</div>
+        <div class="when">en sus primeras 2 semanas</div>
+      </div>
+      <div class="story-card">
+        <div class="name">Valeria</div>
+        <div class="amt">$50K</div>
+        <div class="when">en su primer mes completo</div>
+      </div>
+      <div class="story-card">
+        <div class="name">Andrea</div>
+        <div class="amt">$500K</div>
+        <div class="when">en menos de 5 meses</div>
+      </div>
+    </div>
+  </div>
+  <div class="pg__num">03 / 14</div>
+</article>
+
+<!-- =================================================================
+     04 · PRIMERO, EL ESPEJO — section title
+     ================================================================= -->
+<article class="pg band-dust section-title">
+  <div class="huge-n">01</div>
+  <div class="content">
+    <p class="over no-rule">Capítulo uno</p>
+    <h2>Primero,<br>el <em>espejo</em>.</h2>
+    <p class="deck">Antes de explicarte el sistema, reconoce en cuál de estas tres estás hoy.</p>
+  </div>
+  <div class="pg__num">04 / 14</div>
+</article>
+
+<!-- =================================================================
+     05 · LOS 3 ARCHETIPOS
+     ================================================================= -->
+<article class="pg band-ivory">
+  <div class="wordmark-band">
+    <img src="../assets/logo-chinese-black.png" alt="">
+    <span>01 · el espejo</span>
+  </div>
+  <div class="content">
+    <p class="over">Los tres perfiles</p>
+    <h2 class="chapter" style="font-size:24px;">¿En cuál <em>te reconoces</em>?</h2>
+
+    <div class="arch">
+      <div class="arch-card">
+        <span class="arch-tag">01</span>
+        <h3 class="arch-title">La víctima del algoritmo</h3>
+        <p class="arch-body"><em>"Meta me bajó el alcance. La gente ya no compra."</em> Tiene una excusa para todo, menos para sus propios números.</p>
+      </div>
+      <div class="arch-card">
+        <span class="arch-tag">02</span>
+        <h3 class="arch-title">La empleada del mes</h3>
+        <p class="arch-body" style="" data-cc-id="cc-1">Trabaja +12 horas al día. Su local está impecable, su feed de Instagram hermoso. Pero siempre&nbsp; está agotada. Y las ventas son casi iguales al mes anterior.</p>
+      </div>
+      <div class="arch-card is-you">
+        <span class="arch-tag">03</span>
+        <h3 class="arch-title">La dueña</h3>
+        <p class="arch-body" style="" data-cc-id="cc-2">Tiene un sistema que vende mientras ella duerme. Revisa números, no sentimientos. Crece cada mes aunque no esté pegada al celular o a un mostrador.</p>
+      </div>
+    </div>
+
+    <p class="small" style="margin-top: 14px;" data-cc-id="cc-3">Este documento es para la que ya está en la segunda etapa y quiere pasar a la tercera.</p>
+  </div>
+  <div class="pg__num">05 / 14</div>
+</article>
+
+<!-- =================================================================
+     06 · PUESTO vs EMPRESA + QUIZ
+     ================================================================= -->
+<article class="pg band-lavender">
+  <div class="wordmark-band">
+    <img src="../assets/logo-chinese-black.png" alt="">
+    <span>01 · diagnóstico</span>
+  </div>
+  <div class="content">
+    <p class="over">¿Puesto o empresa?</p>
+    <h2 class="chapter" style="font-size:24px;">Si tus ventas dependen de <em>ti</em>, no tienes una empresa.</h2>
+    <p class="body" style="font-size:11.5px;">La mayoría de las joyeras se quedan atoradas en los $50,000 al mes porque venden por instinto. El instinto te lleva a los primeros pesos. <b style="" data-cc-id="cc-4">Solo un sistema te lleva a los cientos de miles e incluso millones de pesos.</b></p>
+
+    <p class="over" style="margin-top:14px;">Quiz · 30 segundos</p>
+    <ol class="quiz">
+      <li>¿Tus ventas dependen de que tú estés respondiendo mensajes?</li>
+      <li>¿Mandas catálogo cuando alguien pregunta precio?</li>
+      <li>¿Podrías tomar una semana libre sin que caigan las ventas?</li>
+      <li>¿Sabes cuánto te cuesta conseguir un cliente nuevo?</li>
+      <li>¿Tienes un proceso escrito para cerrar una venta?</li>
+    </ol>
+    <p class="small" style="margin-top:auto;"><b style="color:#111">Sí</b> a 1 y 2, <b style="color:#111">no</b> a 3, 4 y 5 → tu negocio depende de ti. No de un sistema. De ti.</p>
+  </div>
+  <div class="pg__num">06 / 14</div>
+</article>
+
+<!-- =================================================================
+     07 · ZAPATOS VS JOYAS
+     ================================================================= -->
+<article class="pg band-ivory">
+  <div class="wordmark-band">
+    <img src="../assets/logo-chinese-black.png" alt="">
+    <span>02 · por qué funciona</span>
+  </div>
+  <div class="content" data-cc-id="cc-7">
+    <p class="over">Zapatos vs. joyas</p>
+    <h2 class="chapter" style="" data-cc-id="cc-5">Si pudimos con zapatos pesados con este sistema, imagina lo que pasa con <em>oro y plata</em>.</h2>
+    <p class="body" style="" data-cc-id="cc-6">Vender calzado es un dolor: son pesados, ocupan espacio, tienen márgenes de ganancias limitados, y el 20–30% regresa porque la talla no le quedó.</p>
+    <p class="body">La joyería es <b>perfecta</b> para vender en línea:</p>
+    <div class="stat-row">
+      <div class="stat"><b>ligera</b><span>más fácil de enviar</span></div>
+      <div class="stat"><b>+margen</b><span>ganancias mucho más altas</span></div>
+      <div class="stat"><b>eterna</b><span style="" data-cc-id="cc-8">no caduca ni pasa de moda</span></div>
+    </div>
+    <p class="body" style="margin-top: auto;" data-cc-id="cc-9">Si no estás facturando 10 veces más que una zapatería, el problema no es tu producto, tal vez es cómo tienes armado tu negocio.</p>
+  </div>
+  <div class="pg__num">07 / 14</div>
+</article>
+
+<!-- =================================================================
+     08 · LOS 3 ERRORES — section title
+     ================================================================= -->
+<article class="pg band-ink section-title">
+  <div class="huge-n" style="color:rgba(252,251,240,.08);">02</div>
+  <div class="content">
+    <p class="over no-rule" style="color:rgba(252,251,240,.6);">Capítulo dos</p>
+    <h2 style="color:#fcfbf0;">Los 3 errores que hoy te <em>cuestan</em> dinero.</h2>
+    <p class="deck" style="color:rgba(252,251,240,.7);">Lo que vemos en el 90% de las joyeras que llegan a trabajar con nosotros.</p>
+  </div>
+  <div class="pg__num" style="color:rgba(252,251,240,.4);">08 / 14</div>
+</article>
+
+<!-- =================================================================
+     09 · ERROR 1
+     ================================================================= -->
+<article class="pg band-ivory">
+  <div class="wordmark-band">
+    <img src="../assets/logo-chinese-black.png" alt="">
+    <span>02 · errores</span>
+  </div>
+  <div class="content" data-cc-id="cc-13">
+    <div class="err-head">
+      <span class="err-n">01</span>
+      <span class="err-label">error · #1</span>
+    </div>
+    <h3 class="err-title">Mandas el catálogo cuando te preguntan el <em>precio</em>.</h3>
+    <p class="body" style="" data-cc-id="cc-10">Alguien escribe "precio o info", tú mandas tu catálogo con 40 opciones, luego la clienta potencial se abruma y termina por dejarte en visto. Esa venta se perdió.</p>
+    <p class="body" style="" data-cc-id="cc-12">Lo que funciona es al revés: <b style="" data-cc-id="cc-11">tú haces las preguntas,</b>&nbsp;tú tienes el control.</p>
+    <div class="err-quote">"¿Es para uso diario o para regalo?" Con esa respuesta, ya sabes qué mostrar. Le presentas 2 o 3 opciones, no 40.</div>
+    <p class="body" style="margin-top:auto;font-family:'Butler',serif;font-style:italic;font-size:15px;color:#111;">El catálogo mata las ventas. La conversación las cierra.</p>
+  </div>
+  <div class="pg__num">09 / 14</div>
+</article>
+
+<!-- =================================================================
+     10 · ERROR 2 + ERROR 3 (compacto)
+     ================================================================= -->
+<article class="pg band-dust">
+  <div class="wordmark-band">
+    <img src="../assets/logo-chinese-black.png" alt="">
+    <span>02 · errores</span>
+  </div>
+  <div class="content" data-cc-id="cc-14">
+    <div class="err-head">
+      <span class="err-n">02</span>
+      <span class="err-label">error · #2</span>
+    </div>
+    <h3 class="err-title" style="" data-cc-id="cc-15">Mides tu éxito en <em>seguidores</em> y "me gusta".</h3>
+    <p class="body" style="font-size: 11.5px;" data-cc-id="cc-16">Te voy a decir algo que puede doler al inicio pero "los seguidores no pagan la renta". 200 me gusta y 0 ventas relamente no es un buen día — es un día <b>ocupado y caro</b>.</p>
+
+    <div style="margin:18px 0;border-top:1px solid rgba(17,17,17,.2);"></div>
+
+    <div class="err-head">
+      <span class="err-n">03</span>
+      <span class="err-label">error · #3</span>
+    </div>
+    <h3 class="err-title" style="font-size:22px;">Empiezas respondiendo <em>mensajes</em>, no decidiendo.</h3>
+    <p class="body" style="font-size: 11.5px;" data-cc-id="cc-17">El problema es que al iniciar tu día pasas dos horas apagando fuegos y aún no pudiste tomar ni una decisión de negocio. Las emprendedoras con las que trabajamos que más facturan dedican sus primeros 15 minutos a un esto: <b>¿cuánto entró ayer? ¿cuánto costó cada venta? ¿cuántos prospectos llegaron? Y con base en eso deciden.</b></p>
+    <p class="body" style="margin-top:auto;font-family:'Butler',serif;font-style:italic;font-size:14px;color:#111;">Primero deciden. Luego operan.</p>
+  </div>
+  <div class="pg__num">10 / 14</div>
+</article>
+
+<!-- =================================================================
+     11 · LOS 3 PILARES — section title
+     ================================================================= -->
+<article class="pg band-sage section-title">
+  <div class="huge-n">03</div>
+  <div class="content">
+    <p class="over no-rule">Capítulo tres</p>
+    <h2>El método de los <em>3 pilares</em>.</h2>
+    <p class="deck" style="" data-cc-id="cc-18">No necesitas más TikToks ni Reels. Necesitas instalar tres cosas.</p>
+  </div>
+  <div class="pg__num">11 / 14</div>
+</article>
+
+<!-- =================================================================
+     12 · PILAR 1 — FILTRO
+     ================================================================= -->
+<article class="pg band-ivory">
+  <div class="wordmark-band">
+    <img src="../assets/logo-chinese-black.png" alt="">
+    <span>03 · pilar uno</span>
+  </div>
+  <div class="content" data-cc-id="cc-19">
+    <p class="pillar-num">— pilar · 01</p>
+    <h3 class="pillar-h">El filtro de <em>compradores</em>, no de curiosos.</h3>
+    <p class="body">Mide en <b>notificaciones de pago</b>, no en likes. Un buen filtro convierte 1 de cada 10 conversaciones en venta.</p>
+    <p class="body" style="font-size:11.5px;">El anuncio que funciona dura menos de 25 segundos y tiene tres partes:</p>
+    <ul style="list-style:none;padding:0;margin:0 0 14px;">
+      <li style="display: flex; gap: 10px; padding: 8px 0px; border-top: 1px solid rgba(17, 17, 17, 0.12); font-size: 11.5px; line-height: 1.5;" data-cc-id="cc-20"><b style="font-family:'Butler',serif;font-style:italic;color:#8c6b52;min-width:20px;">3s</b>El dolor o resultado deseado</li>
+      <li style="display: flex; gap: 10px; padding: 8px 0px; border-top: 1px solid rgba(17, 17, 17, 0.12); font-size: 11.5px; line-height: 1.5;" data-cc-id="cc-22"><b style="font-family:'Butler',serif;font-style:italic;color:#8c6b52;min-width:20px;">15s</b>La diferencia contra cualquier tienda</li>
+      <li style="display: flex; gap: 10px; padding: 8px 0px; border-top: 1px solid rgba(17, 17, 17, 0.12); border-bottom: 1px solid rgba(17, 17, 17, 0.12); font-size: 11.5px; line-height: 1.5;" data-cc-id="cc-23"><b style="font-family:'Butler',serif;font-style:italic;color:#8c6b52;min-width:20px;">5s</b>Qué hacer ahora mismo</li>
+    </ul>
+
+    <figure style="margin:4px 0 14px;padding:14px 16px;border-radius:12px;background:rgba(140,107,82,.08);border:1px solid rgba(140,107,82,.25);" data-cc-id="cc-3">
+      <figcaption style="font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: rgb(140, 107, 82); font-weight: 600; margin-bottom: 8px;" data-cc-id="cc-2">Ejemplo del anuncio</figcaption>
+      <p style="margin: 0px; font-family: Butler, serif; font-style: italic; font-size: 13.5px; line-height: 1.45; color: rgb(140, 107, 82); letter-spacing: -0.005em;" data-cc-id="cc-1">
+        "¿Cansada de regalar anillos que se oxidan en un mes? Nuestras piezas son plata .925 con garantía de por vida, hechas para durar. <span style="font-style:normal;font-weight:600;">Escríbenos "anillo" y te enseñamos 3 opciones que te van a encantar.</span>"
+      </p>
+    </figure>
+
+    <div class="note-box">
+      <div class="label">El número que importa</div>
+      <p style="" data-cc-id="cc-21">Gastaste $500 y no tienes 8 mensajes ese día → apaga el anuncio, cambia el gancho.</p>
+    </div>
+  </div>
+  <div class="pg__num">12 / 14</div>
+</article>
+
+<!-- =================================================================
+     13 · PILAR 2 + PILAR 3 (compacto)
+     ================================================================= -->
+<article class="pg band-lavender">
+  <div class="wordmark-band">
+    <img src="../assets/logo-chinese-black.png" alt="">
+    <span>03 · pilares dos y tres</span>
+  </div>
+  <div class="content">
+    <p class="pillar-num">— pilar · 02</p>
+    <h3 class="pillar-h" style="font-size:22px;">Que una desconocida te deposite <em>$15,000</em>.</h3>
+    <p class="body" style="font-size: 11.5px;" data-cc-id="cc-4">En un local o en un bazar es más sencillo porque están viendo la pieza. Para hacer que funcione en línea muestra <b>pruebas reales</b> (no "mis clientas me aman" — muestra a la clienta en Monterrey con su testimonio en video). Explica tu garantía en palabras simples. Y por último ancla el precio: enséñale primero el set de $2,800, luego la pieza de $1,500 — siente que está ahorrando porque compara las dos opciones que le mostraste, no te compara en automático con la competencia y hemos visto cientos, si no es que miles de veces, lo mucho que esto funciona.</p>
+
+    <div style="margin:16px 0;border-top:1px solid rgba(17,17,17,.2);"></div>
+
+    <p class="pillar-num">— pilar · 03</p>
+    <h3 class="pillar-h" style="font-size:22px;">El negocio que <em>trabaja sin ti</em>.</h3>
+    <p class="body" style="font-size: 11.5px;" data-cc-id="cc-5">Si el negocio se detiene porque no lo pudiste atender, aún tienes un empleo. Automatiza tres cosas: la respuesta inicial, el seguimiento a las 24h (<b>recupera el 60%</b> de las ventas perdidas) y un reporte diario para decidir qué mejorar, no apagar incendios.</p>
+
+    <div class="note-box" style="margin-top:auto;">
+      <div class="label">La prueba definitiva</div>
+      <p style="" data-cc-id="cc-6">Si puedes tomar un día libre sin que caigan las ventas → ya lo tienes. Si no, sigue siendo un autoempleo.</p>
+    </div>
+  </div>
+  <div class="pg__num">13 / 14</div>
+</article>
+
+<!-- =================================================================
+     14 · MATEMÁTICAS + CTA (combinada)
+     ================================================================= -->
+<article class="pg cta-page">
+  <img class="iso-ghost" src="../assets/isotipo-pale-ivory.png" alt="">
+  <div class="content" data-cc-id="cc-3">
+    <div>
+      <p class="over">Las matemáticas · y el siguiente paso</p>
+      <h2>5 piezas × 20 días × $2,500 = <em>$250K</em>.</h2>
+      <p>La única diferencia entre los $50K y los $250K no es el diseño de tus anillos. Es cuántas personas con dinero ven tu marca cada día.</p>
+
+      <p class="over" style="margin-top:18px;color:rgba(252,251,240,.55);">El siguiente paso es solo para ti si:</p>
+      <ul class="checklist">
+        <li>Tienes inventario activo de oro o plata</li>
+        <li>Ya generas ventas (físicas o en línea)</li>
+        <li>Estás lista para invertir en escalar</li>
+      </ul>
+
+      <div style="margin-top:14px;padding:12px 14px;border-radius:10px;background:rgba(252,251,240,.06);border:1px solid rgba(252,251,240,.14);">
+        <p style="margin: 0px 0px 4px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(252, 251, 240, 0.55); font-weight: 600;" data-cc-id="cc-2">Esto no TE FUNCIONA si:</p>
+        <p style="margin: 0px; font-size: 11px; line-height: 1.5; color: rgba(252, 251, 240, 0.7);" data-cc-id="cc-1">Apenas vas a empezar, buscas trucos gratis, vendes bisutería o acero inoxidable al menudeo o no estás dispuesta a operar con números.</p>
+      </div>
+    </div>
+
+    <div>
+      <a class="cta-btn" href="https://tidycal.com/estudiose/reuniones-de-consulta" target="_blank" rel="noopener" data-cc-id="cc-7">Pedir mi auditoría gratuita →</a>
+      <p class="cta-sub" data-cc-id="cc-8">videollamada · gratis</p>
+    </div>
+  </div>
+  <div class="pg__num" style="color:rgba(252,251,240,.4);">14 / 14</div>
+  <div class="pg__brand" style="color:rgba(252,251,240,.4);">
+    <img src="../assets/logo-pale-ivory.png" alt="" style="opacity:.6;">
+  </div>
+</article>
+
+
+
+</body></html>

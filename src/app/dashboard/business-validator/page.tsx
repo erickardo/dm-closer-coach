@@ -6,9 +6,12 @@ import { TrendingUp, Download, CheckCircle2, AlertTriangle, Info, ShieldAlert, A
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
+import { PdfReportTemplate } from '@/components/PdfReportTemplate'
 
 export default function BusinessValidatorPage() {
   const reportRef = useRef<HTMLDivElement>(null)
+  const pdfTemplateRef = useRef<HTMLDivElement>(null)
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false)
   
   // Basic Metrics
   const [monthlySales, setMonthlySales] = useState(10000)
@@ -79,18 +82,26 @@ export default function BusinessValidatorPage() {
   }, [growthGap, growthCeiling, monthlySales, clientAcquisition, aov, rtRate])
 
   const generatePDF = async () => {
-     if (!reportRef.current) return
+     if (!pdfTemplateRef.current) return
+     setIsGeneratingPdf(true)
      try {
-       const canvas = await html2canvas(reportRef.current, { scale: 2 })
-       const imgData = canvas.toDataURL('image/png')
-       const pdf = new jsPDF('p', 'mm', 'a4')
-       const pdfWidth = pdf.internal.pageSize.getWidth()
-       const pdfHeight = (canvas.height * pdfWidth) / canvas.width
-       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+       const pages = pdfTemplateRef.current.querySelectorAll('.pg')
+       const pdf = new jsPDF('p', 'px', [420, 720])
+       
+       for (let i = 0; i < pages.length; i++) {
+         const pageEl = pages[i] as HTMLElement
+         const canvas = await html2canvas(pageEl, { scale: 2, useCORS: true, backgroundColor: '#fcfbf0' })
+         const imgData = canvas.toDataURL('image/png')
+         
+         if (i > 0) pdf.addPage([420, 720], 'p')
+         pdf.addImage(imgData, 'PNG', 0, 0, 420, 720)
+       }
        pdf.save('reporte_estrategico.pdf')
      } catch(e) {
        console.error(e)
        alert('Error generando PDF')
+     } finally {
+       setIsGeneratingPdf(false)
      }
   }
 
@@ -352,15 +363,30 @@ export default function BusinessValidatorPage() {
                 </div>
               </div>
 
-              {/* Export Action */}
               <div className="flex justify-center pt-8">
-                 <button onClick={generatePDF} className="bg-[#b4bfa5] hover:bg-[#8a9470] text-white font-bold py-4 px-8 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center gap-2">
-                    <Download className="w-5 h-5" />
-                    Descargar Reporte Estratégico (PDF)
+                 <button onClick={generatePDF} disabled={isGeneratingPdf} className={`bg-[#b4bfa5] hover:bg-[#8a9470] text-white font-bold py-4 px-8 rounded-full shadow-lg transition-transform ${isGeneratingPdf ? 'opacity-70 cursor-not-allowed' : 'hover:scale-105'} flex items-center gap-2`}>
+                    <Download className={`w-5 h-5 ${isGeneratingPdf ? 'animate-bounce' : ''}`} />
+                    {isGeneratingPdf ? 'Generando Reporte...' : 'Descargar Reporte Estratégico (PDF)'}
                  </button>
               </div>
 
             </div>
+          </div>
+        )}
+        
+        {/* Hidden PDF Template */}
+        {mode !== 'initial' && (
+          <div style={{ position: 'absolute', top: '-9999px', left: '-9999px', zIndex: -1 }}>
+            <PdfReportTemplate 
+              ref={pdfTemplateRef} 
+              data={{
+                monthlySales, annualRunRate, businessValuation,
+                growthCeiling, growthGap, isInfinity,
+                showAdvanced, cac, ltgp, ratioLtvCac, roas,
+                retentionRate, aov, clientAcquisition,
+                recommendations
+              }} 
+            />
           </div>
         )}
       </div>

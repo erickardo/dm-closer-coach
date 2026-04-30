@@ -21,7 +21,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   )
 
   const { data: profile } = await supabaseAdmin
-    .from('Creditos')
+    .from('creditos')
     .select('credits_left')
     .eq('email', user.email)
     .single()

@@ -47,7 +47,7 @@ export async function POST(req: Request) {
 
     // 1. Check Credits
     const { data: profile } = await supabaseAdmin
-      .from('Creditos')
+      .from('creditos')
       .select('credits_left')
       .eq('email', user.email)
       .single()
@@ -141,7 +141,7 @@ export async function POST(req: Request) {
 
     // 3. Deduct 1 credit
     await supabaseAdmin
-      .from('Creditos')
+      .from('creditos')
       .update({ credits_left: credits - 1 })
       .eq('email', user.email)
 

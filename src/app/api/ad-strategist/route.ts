@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     // Check credits
     const { data: profile } = await supabaseAdmin
-      .from('Creditos')
+      .from('creditos')
       .select('credits_left')
       .eq('email', user.email)
       .single()
@@ -77,7 +77,7 @@ Limita tu respuesta a un máximo de 2000 caracteres y evita escribir palabras en
       const data = await res.json();
       
       // Deduct 1 credit for step 1
-      await supabaseAdmin.from('Creditos').update({ credits_left: credits - 1 }).eq('email', user.email)
+      await supabaseAdmin.from('creditos').update({ credits_left: credits - 1 }).eq('email', user.email)
 
       return NextResponse.json({ strategy: data.choices[0].message.content, credits_left: credits - 1 });
     } 
@@ -145,7 +145,7 @@ Genera solo JSON válido.`;
       const parsed = JSON.parse(content);
 
       // Deduct 1 credit for step 2
-      await supabaseAdmin.from('Creditos').update({ credits_left: credits - 1 }).eq('email', user.email)
+      await supabaseAdmin.from('creditos').update({ credits_left: credits - 1 }).eq('email', user.email)
 
       return NextResponse.json({ output: parsed, credits_left: credits - 1 });
     }

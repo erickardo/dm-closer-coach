@@ -29,17 +29,23 @@ export async function POST(req: Request) {
       )
 
       const { data: profile } = await supabaseAdmin
-        .from('Creditos')
+        .from('creditos')
         .select('credits_left')
         .eq('email', email)
-        .single()
+        .maybeSingle()
         
       const currentCredits = profile?.credits_left || 0
       
-      // Upsert ensures new users also get credits implicitly.
-      await supabaseAdmin
-        .from('Creditos')
-        .upsert({ email: email, credits_left: currentCredits + 10 }, { onConflict: 'email' })
+      if (profile) {
+        await supabaseAdmin
+          .from('creditos')
+          .update({ credits_left: currentCredits + 10 })
+          .eq('email', email)
+      } else {
+        await supabaseAdmin
+          .from('creditos')
+          .insert({ email: email, credits_left: 10 })
+      }
     }
   }
 
