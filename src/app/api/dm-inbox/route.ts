@@ -14,6 +14,26 @@ const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
 // this structured classification task.
 const MODEL = 'anthropic/claude-haiku-4.5'
 
+/** Replace the internal transcript tags (BIZ/LEAD) with natural language across all
+ *  string fields of the report, so they never reach the user. */
+function scrubTags<T>(v: T): T {
+  if (typeof v === 'string') {
+    return v
+      .replace(/\[?\bBIZ\b\]?/g, 'del negocio')
+      .replace(/\[?\bLEAD\b\]?/g, 'de la clienta')
+      .replace(/\s{2,}/g, ' ')
+      .trim() as unknown as T
+  }
+  if (Array.isArray(v)) return v.map(scrubTags) as unknown as T
+  if (v && typeof v === 'object') {
+    for (const k in v as Record<string, unknown>) {
+      (v as Record<string, unknown>)[k] = scrubTags((v as Record<string, unknown>)[k])
+    }
+    return v
+  }
+  return v
+}
+
 export async function POST(req: Request) {
   try {
     const supabase = createClient()
@@ -122,6 +142,9 @@ export async function POST(req: Request) {
         throw new Error('El modelo no devolvió un JSON válido. Intenta de nuevo.')
       }
     }
+
+    // Safety net: never leak the internal transcript tags (BIZ/LEAD) into the user report.
+    qualitative = scrubTags(qualitative)
 
     // 4. Deduct credits only after a successful analysis.
     const newCredits = credits - INBOX_REPORT_COST

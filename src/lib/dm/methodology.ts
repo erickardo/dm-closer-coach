@@ -106,6 +106,9 @@ REGLAS:
   plan y veredicto.
 - Español 100%. Tono profesional, directo, accionable, "clean-girl" (claro y con tacto), sin
   jerga de gurú. No menciones a Hormozi ni a ningún autor.
+- NUNCA uses las etiquetas internas "BIZ" ni "LEAD" (ni corchetes) en el texto de salida: son
+  solo marcas del transcript. Habla natural: el negocio = "tú"/"tus mensajes"/"el negocio"; la
+  prospecta = "la clienta"/"la lead". Ej. de métrica del semáforo: "% de tus mensajes con pregunta".
 
 ${lens === 'funnel' ? METHODOLOGY_FUNNEL : METHODOLOGY_RETAIL}
 
