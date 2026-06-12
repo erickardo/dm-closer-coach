@@ -1,20 +1,27 @@
 import Link from 'next/link'
-import { MessageSquare, Megaphone, TrendingUp, ArrowRight } from 'lucide-react'
+import { MessageSquare, Megaphone, TrendingUp, ArrowRight, Inbox } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
 export default function DashboardPage() {
   const tools = [
     {
-      title: "DM Closer Coach",
-      description: "Analiza capturas de pantalla de tus chats, descubre errores y obtén respuestas maestras con IA para cerrar más ventas en Instagram.",
+      title: "Coach de DMs",
+      description: "Analiza capturas de pantalla de tus chats, descubre errores y obtén respuestas maestras para cerrar más ventas en Instagram.",
       icon: MessageSquare,
       href: "/dashboard/dm-analyzer",
       color: "text-blue-500"
     },
     {
+      title: "Diagnóstico de Bandeja",
+      description: "Sube el export de tus DMs de Instagram y recibe un diagnóstico de ventas de toda tu bandeja: tasas, objeciones reales, errores y plan de acción en PDF.",
+      icon: Inbox,
+      href: "/dashboard/dm-inbox",
+      color: "text-[#8c6b52]"
+    },
+    {
       title: "Estratega de Anuncios",
-      description: "Genera copy publicitario de alta conversión usando la Ecuación de Valor. Cero hype, 100% efectividad.",
+      description: "Genera copy publicitario de alta conversión usando la Ecuación de Valor. Sin rodeos, 100% efectividad.",
       icon: Megaphone,
       href: "/dashboard/ad-strategist",
       color: "text-[#b4bfa5]"

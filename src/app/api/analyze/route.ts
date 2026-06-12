@@ -64,7 +64,7 @@ export async function POST(req: Request) {
        return NextResponse.json({ error: 'AI Gateway not configured' }, { status: 500 })
     }
 
-    let model = 'anthropic/claude-3.5-sonnet'
+    let model = 'anthropic/claude-sonnet-4.6'
     let messages: any[] = [
       { role: 'system', content: SYSTEM_PROMPT }
     ]
