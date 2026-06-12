@@ -79,7 +79,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         model: MODEL,
         temperature: 0.4,
-        max_tokens: 4000,
+        max_tokens: 8000, // full report is ~3.4k tokens; 4000 truncated it -> invalid JSON
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: buildSystemPrompt(safeLens) },
@@ -111,8 +111,16 @@ export async function POST(req: Request) {
     try {
       qualitative = JSON.parse(resultText)
     } catch {
-      console.error('Failed to parse AI response:', resultText)
-      throw new Error('El modelo no devolvió un JSON válido. Intenta de nuevo.')
+      // Salvage: grab the outermost {...} in case the model wrapped the JSON in prose.
+      const start = resultText.indexOf('{')
+      const end = resultText.lastIndexOf('}')
+      if (start !== -1 && end > start) {
+        try { qualitative = JSON.parse(resultText.slice(start, end + 1)) } catch { /* fall through */ }
+      }
+      if (!qualitative) {
+        console.error('Failed to parse AI response:', resultText)
+        throw new Error('El modelo no devolvió un JSON válido. Intenta de nuevo.')
+      }
     }
 
     // 4. Deduct credits only after a successful analysis.
