@@ -9,7 +9,10 @@ export const runtime = 'nodejs'
 export const maxDuration = 60
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
-const MODEL = 'anthropic/claude-sonnet-4.6'
+// Haiku 4.5 keeps the full inbox analysis (~25s) comfortably under the 60s serverless
+// limit; Sonnet took ~79s on a 500-convo inbox and timed out. Quality stays strong for
+// this structured classification task.
+const MODEL = 'anthropic/claude-haiku-4.5'
 
 export async function POST(req: Request) {
   try {
