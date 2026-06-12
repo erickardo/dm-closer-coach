@@ -7,5 +7,6 @@ export const INBOX_REPORT_COST = 10
 export type Lens = 'retail' | 'funnel'
 
 /** Cap on transcript chars sent to the LLM. buildTranscripts() orders longest-first,
- *  so slicing keeps the richest conversations. Keeps us inside the model context + timeout. */
-export const MAX_TRANSCRIPT_CHARS = 90_000
+ *  so slicing keeps the richest conversations. Lower = faster LLM call (stays under the
+ *  serverless timeout on big inboxes). Hard metrics still use ALL conversations. */
+export const MAX_TRANSCRIPT_CHARS = 50_000

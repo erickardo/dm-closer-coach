@@ -76,6 +76,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         model: MODEL,
         temperature: 0.4,
+        max_tokens: 4000,
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: buildSystemPrompt(safeLens) },

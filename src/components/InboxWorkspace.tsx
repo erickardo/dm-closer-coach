@@ -10,7 +10,7 @@ import {
   analyzeDms, buildTranscripts, mergeConversation, detectBusiness,
   KEYWORDS_JEWELRY, type RawConversationFile, type AnalysisResult,
 } from '@/lib/dm/analyzeDms'
-import { INBOX_REPORT_COST } from '@/lib/dm/constants'
+import { INBOX_REPORT_COST, MAX_TRANSCRIPT_CHARS } from '@/lib/dm/constants'
 import { parseHtmlConversationFile } from '@/lib/dm/parseHtmlInbox'
 import type { QualitativeReport } from '@/lib/dm/methodology'
 import InboxReport from '@/components/InboxReport'
@@ -86,12 +86,29 @@ export default function InboxWorkspace({ credits }: { credits: number }) {
       const { hard, transcripts } = await runEngine(file)
 
       setProgress('Estamos analizando tus mensajes...')
-      const res = await fetch('/api/dm-inbox', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ analysis: hard, transcripts, lens: 'retail' }),
-      })
-      const data = await res.json()
+      const controller = new AbortController()
+      const timer = setTimeout(() => controller.abort(), 90000)
+      let res: Response
+      try {
+        res = await fetch('/api/dm-inbox', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ analysis: hard, transcripts: transcripts.slice(0, MAX_TRANSCRIPT_CHARS), lens: 'retail' }),
+          signal: controller.signal,
+        })
+      } finally {
+        clearTimeout(timer)
+      }
+
+      // The server always responds JSON. A non-JSON body means a platform-level error
+      // (usually a timeout on a very large inbox) — handle it gracefully.
+      const rawBody = await res.text()
+      let data: any
+      try {
+        data = JSON.parse(rawBody)
+      } catch {
+        throw new Error('El análisis tardó demasiado y el servidor cortó la conexión. Las bandejas muy grandes pueden tardar; espera unos segundos y vuelve a intentar.')
+      }
 
       if (!res.ok) {
         if (data.code === 'NO_CREDITS') {
@@ -107,7 +124,11 @@ export default function InboxWorkspace({ credits }: { credits: number }) {
       setFile(null)
       router.refresh()
     } catch (err: any) {
-      setError(err.message || 'Error procesando el archivo.')
+      if (err?.name === 'AbortError') {
+        setError('El análisis tardó demasiado (bandeja muy grande). Espera un momento y vuelve a intentar.')
+      } else {
+        setError(err.message || 'Error procesando el archivo.')
+      }
     } finally {
       setLoading(false)
       setProgress('')
