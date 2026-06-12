@@ -11,11 +11,13 @@ import {
   KEYWORDS_JEWELRY, type RawConversationFile, type AnalysisResult,
 } from '@/lib/dm/analyzeDms'
 import { INBOX_REPORT_COST } from '@/lib/dm/constants'
+import { parseHtmlConversationFile } from '@/lib/dm/parseHtmlInbox'
 import type { QualitativeReport } from '@/lib/dm/methodology'
 import InboxReport from '@/components/InboxReport'
 import InboxPdfTemplate from '@/components/InboxPdfTemplate'
 
-const INBOX_RE = /messages\/inbox\/([^/]+)\/message_\d+\.json$/
+// Instagram exports come as JSON or HTML — accept both.
+const INBOX_RE = /messages\/inbox\/([^/]+)\/message_\d+\.(json|html)$/i
 
 export default function InboxWorkspace({ credits }: { credits: number }) {
   const router = useRouter()
@@ -42,10 +44,13 @@ export default function InboxWorkspace({ credits }: { credits: number }) {
     const paths = Object.keys(zip.files).filter((p) => INBOX_RE.test(p))
     await Promise.all(
       paths.map(async (p) => {
-        const folder = p.match(INBOX_RE)![1]
+        const match = p.match(INBOX_RE)!
+        const folder = match[1]
+        const ext = match[2].toLowerCase()
         try {
-          const json = JSON.parse(await zip.files[p].async('string'))
-          ;(groups[folder] ||= []).push(json)
+          const raw = await zip.files[p].async('string')
+          const file = ext === 'html' ? parseHtmlConversationFile(raw) : JSON.parse(raw)
+          ;(groups[folder] ||= []).push(file)
         } catch {
           /* skip unreadable file */
         }
@@ -54,7 +59,7 @@ export default function InboxWorkspace({ credits }: { credits: number }) {
 
     const convos = Object.entries(groups).map(([folder, files]) => mergeConversation(folder, files))
     if (!convos.length) {
-      throw new Error('No encontramos "messages/inbox/" en el .zip. Sube el export oficial de Instagram en formato JSON.')
+      throw new Error('No encontramos conversaciones ("messages/inbox/") en el .zip. Sube el export oficial de Instagram (Configuración → Tu actividad → Descargar tu información), en formato JSON o HTML.')
     }
 
     const business = detectBusiness(convos)
@@ -170,9 +175,9 @@ export default function InboxWorkspace({ credits }: { credits: number }) {
             Diagnóstico de Bandeja
           </h1>
           <p className="text-gray-500 font-sans max-w-xl">
-            Sube el export oficial de tus DMs de Instagram (.zip, formato JSON) y recibe un
-            diagnóstico de ventas de toda tu bandeja: tasas, objeciones reales, errores de
-            venta y un plan de acción. Tus chats se procesan en tu navegador.
+            Sube el export oficial de tus DMs de Instagram (.zip, formato JSON o HTML) y
+            recibe un diagnóstico de ventas de toda tu bandeja: tasas, objeciones reales,
+            errores de venta y un plan de acción. Tus chats se procesan en tu navegador.
           </p>
         </div>
       )}
@@ -210,7 +215,7 @@ export default function InboxWorkspace({ credits }: { credits: number }) {
                   <FileArchive className="w-8 h-8" />
                 </div>
                 <p className="mb-2 text-lg font-semibold text-[#111111]">Arrastra tu .zip aquí o haz clic</p>
-                <p className="text-sm text-gray-500">Export de Instagram (Configuración → Tu actividad → Descargar tu información → JSON)</p>
+                <p className="text-sm text-gray-500">Export de Instagram (Configuración → Tu actividad → Descargar tu información). Acepta JSON o HTML.</p>
               </div>
               <input
                 id="zip-upload"
